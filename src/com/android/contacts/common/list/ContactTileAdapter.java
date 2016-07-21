@@ -416,7 +416,7 @@ public class ContactTileAdapter extends BaseAdapter {
         MoreContactUtils.setHeaderViewBottomPadding(mContext, headerTextView, isFirstRow);
     }
 
-    private int getLayoutResourceId(int viewType) {
+    protected int getLayoutResourceId(int viewType) {
         switch (viewType) {
             case ViewTypes.STARRED:
                 return mIsQuickContactEnabled ?

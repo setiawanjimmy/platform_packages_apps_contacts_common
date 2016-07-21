@@ -69,6 +69,8 @@ public abstract class ContactTileView extends FrameLayout {
 
         OnClickListener listener = createClickListener();
         setOnClickListener(listener);
+        OnLongClickListener longCLickListener = createLongClickListener();
+        setOnLongClickListener(longCLickListener);
     }
 
     protected OnClickListener createClickListener() {
@@ -79,6 +81,19 @@ public abstract class ContactTileView extends FrameLayout {
                 mListener.onContactSelected(
                         getLookupUri(),
                         MoreContactUtils.getTargetRectFromView(ContactTileView.this));
+            }
+        };
+    }
+
+    protected OnLongClickListener createLongClickListener() {
+        return new OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if (mListener == null) return false;
+                mListener.onContactLongSelected(
+                        getLookupUri(),
+                        MoreContactUtils.getTargetRectFromView(ContactTileView.this));
+                return true;
             }
         };
     }
@@ -237,5 +252,9 @@ public abstract class ContactTileView extends FrameLayout {
          *         can be ignored), but is used to load the correct picture size from the database
          */
         int getApproximateTileWidth();
+        /**
+         * Notification that the contact was long selected; no specific action is dictated.
+         */
+        void onContactLongSelected(Uri contactLookupUri, Rect viewRect);
     }
 }
